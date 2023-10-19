@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -11,31 +11,50 @@ import {
   NestableDraggableFlatList,
   NestableScrollContainer,
 } from "react-native-draggable-flatlist";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {
+  GestureHandlerRootView,
+  State,
+  LongPressGestureHandler,
+} from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Feather } from "@expo/vector-icons";
+// import { Feather } from "@expo/vector-icons";
 
 export default function HomeScreen() {
   const Companies = [
     {
-      id: "company-01",
-      name: "Firma 1",
+      id: "service-01",
+      name: "Hizmet 1",
+      category: "Kuaför",
+      processTime: "40 dk",
+      price: "250 TL",
     },
     {
-      id: "company-02",
-      name: "Firma 2",
+      id: "service-02",
+      name: "Hizmet 2",
+      category: "Kuaför",
+      processTime: "40 dk",
+      price: "250 TL",
     },
     {
-      id: "company-03",
-      name: "Firma 3",
+      id: "service-03",
+      name: "Hizmet 3",
+      category: "Kuaför",
+      processTime: "40 dk",
+      price: "250 TL",
     },
     {
-      id: "company-04",
-      name: "Firma 4",
+      id: "service-04",
+      name: "Hizmet 4",
+      category: "Kuaför",
+      processTime: "40 dk",
+      price: "250 TL",
     },
     {
-      id: "company-05",
-      name: "Firma 5",
+      id: "service-05",
+      name: "Hizmet 5",
+      category: "Kuaför",
+      processTime: "40 dk",
+      price: "250 TL",
     },
   ];
 
@@ -50,50 +69,73 @@ export default function HomeScreen() {
   }, []);
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="transfluent" />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <NestableScrollContainer>
-          <Text style={styles.header}>Şirketler</Text>
+          <Text style={styles.header}>Hizmet Listesi</Text>
           <NestableDraggableFlatList
             data={data}
             renderItem={({ item, drag }) => (
-              <TouchableOpacity
+              <View
                 style={{
                   backgroundColor: "#86C17A",
-                  margin: 10,
-                  padding: 10,
+                  marginHorizontal: 48,
+                  marginVertical: 10,
+                  padding: 16,
                   borderRadius: 18,
                   display: "flex",
                   flexDirection: "row",
-                  justifyContent: "space-between",
                 }}
-                onPressIn={drag}
-                activeOpacity={0.75}
+                // onPressIn={drag}
               >
+                <TouchableOpacity onPressIn={drag} style={{ padding: 6 }}>
+                  <View
+                    style={{ padding: 6, flex: 1, backgroundColor: "white" }}
+                  ></View>
+                </TouchableOpacity>
                 <View
                   style={{
                     display: "flex",
-                    flexDirection: "row",
                     gap: 8,
                     alignItems: "center",
+                    flex: 1,
+                    marginLeft: 4,
                   }}
                 >
-                  <Feather name="menu" size={24} color="black" />
-                  <Text style={styles.text}>{item.name}</Text>
+                  <View style={{ paddingHorizontal: 4, width: "100%" }}>
+                    <Text
+                      style={{
+                        color: "white",
+                        paddingVertical: 10,
+                        fontSize: 20,
+                      }}
+                    >
+                      {item.name}
+                    </Text>
+                    <Text style={{ color: "white" }}>
+                      Kategori: {item.category}
+                    </Text>
+                    <Text style={{ color: "white" }}>
+                      İşlem Süresi: {item.processTime}
+                    </Text>
+                    <Text style={{ color: "white" }}>Ücret: {item.price}</Text>
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: "white",
+                        padding: 12,
+                        borderRadius: 8,
+                        alignSelf: "center",
+                        width: "100%",
+                        margin: 8,
+                      }}
+                      onPress={() => {
+                        alert("Randevu Alındı");
+                      }}
+                    >
+                      <Text style={{ alignSelf: "center" }}>Düzenle</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: "white",
-                    padding: 4,
-                    borderRadius: 8,
-                  }}
-                  onPress={() => {
-                    alert("Randevu Alındı");
-                  }}
-                >
-                  <Text>Randevu Al</Text>
-                </TouchableOpacity>
-              </TouchableOpacity>
+              </View>
             )}
             dragItemOverflow={true}
             stickyHeaderHiddenOnScroll={true}
